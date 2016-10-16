@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	isELIgnored="false"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -13,11 +14,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	success
-	<br />
-	${message }<br />
-	${user.username }
-	<a href="admin/index">admin</a>
-	<a href="index.jsp">user</a>
+	hewe
 </body>
 </html>

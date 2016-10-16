@@ -10,14 +10,22 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style type="text/css">
+	/*body {background-color:#b0c4de;}*/ 
+	h1{text-align: center;}
+	a.user {position: fixed;right: 10px;bottom: 10px}
+	a.user:link {text-decoration: none;}
+	a.user:hover{text-decoration: underline;}
+	a.head {position: fixed;left: 10px;bottom: 10px}
+	a.head:link {text-decoration: none;}
+	a.head:hover{text-decoration: underline;}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-	success
-	<br />
-	${message }<br />
-	${user.username }
-	<a href="admin/index">admin</a>
-	<a href="index.jsp">user</a>
+	<h1>hewe</h1>
+	<a class="user" href="">${user.username }</a>
+	<a class="head" href="adminBody.jsp" target="adminBody">首页</a>
 </body>
 </html>
