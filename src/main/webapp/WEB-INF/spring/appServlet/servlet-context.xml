@@ -9,15 +9,18 @@
 	<!-- Enables controllers mapped with @RequestMapping annotations, formatting 
 		annotations @NumberFormat @DateTimeFormat, and JSR 303 style validation -->
 	<mvc:annotation-driven validator="validator" />
-	<mvc:resources location="/css/" mapping="/css/**"/>
-	<mvc:resources location="/js/" mapping="/js/**"/>
-	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
 		<!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
+	<!-- 支持上传文件 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	<!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
