@@ -20,6 +20,20 @@ public class FileModel extends BaseModel {
 	private UserModel user;
 	private String saveName;
 
+	public FileModel() {
+	}
+
+	public FileModel(String id, String name, String path, Date upTime, int downtimes, UserModel user, String saveName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.path = path;
+		this.upTime = upTime;
+		this.downtimes = downtimes;
+		this.user = user;
+		this.saveName = saveName;
+	}
+
 	@Id
 	public String getId() {
 		return id;

@@ -1,7 +1,10 @@
 package com.hewe.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +16,7 @@ import com.hewe.util.model.Page;
 @Service("fileService")
 @Transactional
 public class FileService implements IFileService {
-
+	private static final Logger log = Logger.getLogger(FileService.class);
 	@Autowired
 	private IFileDao fileDao;
 
@@ -47,6 +50,24 @@ public class FileService implements IFileService {
 			page = new Page(Integer.parseInt(pageIndex), totalRecord);
 		}
 		List list = fileDao.getPageData(page.getStartIndex(), Page.PAGESIZE);
+
+		page.setList(list);
+
+		return page;
+	}
+
+	public Page getPageDataFile(String pageIndex, Map<String, Object> map) {
+		log.debug("getPageDataFile map");
+		int totalRecord = fileDao.getTotalRecord();
+		Page page = null;
+		if (pageIndex == null) {
+			page = new Page(1, totalRecord);
+		} else {
+			page = new Page(Integer.parseInt(pageIndex), totalRecord);
+		}
+		map = new HashMap<String, Object>();
+		map.put("user_id", "123");
+		List list = fileDao.getPageData(page.getStartIndex(), Page.PAGESIZE, map);
 
 		page.setList(list);
 
