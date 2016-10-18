@@ -50,9 +50,11 @@
 		<div class="div3">
 			<ul>
 				<li><a class="a" href="javascript:void(0);"
-					onClick="openurl('client/myFiles?pageIndex=0&user_id=${user.id}'');">我的文件</a></li>
+					onClick="openurl('client/myFiles');">我的文件</a></li>
 				<li><a class="a" href="javascript:void(0);"
-					onClick="openurl('');">个人信息</a></li>
+					onClick="openurl('client/myInfo');">个人信息</a></li>
+				<li><a class="a" href="javascript:void(0);"
+					onClick="openurl('logout');">退出</a></li>
 			</ul>
 		</div>
 	</div>

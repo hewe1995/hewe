@@ -1,8 +1,11 @@
 package com.hewe.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,10 +29,29 @@ public class ClientController {
 	private IFileService fileService;
 
 	@RequestMapping(path = "/myFiles", method = RequestMethod.GET)
-	public String currentUserFile(@RequestParam("pageIndex") String pageIndex, ModelMap map) {
+	public String currentUserFile(@RequestParam(value = "pageIndex", required = false) String pageIndex, ModelMap map,
+			HttpServletRequest request) {
 		log.debug("currentUserFile excute");
-		fileService.getPageDataFile(null, null);
+		Page page = null;
+		UserModel user = (UserModel) request.getSession().getAttribute("user");
 
+		if (user == null) {
+			log.debug("user not login");
+			map.put("message", "请先<a href='login'>登录</a>");
+			return "message";
+		}
+		Map<String, Object> sqlConditions = new HashMap<String, Object>();
+		sqlConditions.put("user_id", user.getId());
+		if (pageIndex == null) {
+			log.debug("pageIndex null");
+			page = fileService.getPageDataFile(null, sqlConditions);
+			log.info("page : totalrecord:" + page.getTotalRecord() + "currentINdex :" + page.getCurrentPageNum());
+			map.put("filePage", page);
+			return "currentUserFile";
+		}
+		page = fileService.getPageDataFile(pageIndex, sqlConditions);
+		log.info("page : totalrecord:" + page.getTotalRecord() + "currentINdex :" + page.getCurrentPageNum());
+		map.put("filePage", page);
 		return "currentUserFile";
 	}
 
@@ -42,15 +64,21 @@ public class ClientController {
 		} else {
 			page = fileService.getPageDataFile(pageIndex);
 		}
-		List<FileModel> list = page.getList();
-		if (list != null) {
-			for (FileModel file : list) {
-				System.out.println(file.getName());
-			}
-		}
 		map.put("filePage", page);
 
 		return "client_showFile";
 	}
+	@RequestMapping(path = "/myInfo", method = RequestMethod.GET)
+	public String myInfo(HttpServletRequest request, ModelMap map){
+		
+		UserModel user = (UserModel) request.getSession().getAttribute("user");
 
+		if (user == null) {
+			log.debug("user not login");
+			map.put("message", "请先<a href='login'>登录</a>");
+			return "message";
+		}
+		
+		return "myInfo";
+	}
 }

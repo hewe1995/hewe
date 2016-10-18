@@ -42,7 +42,7 @@ public class FileService implements IFileService {
 	}
 
 	public Page getPageDataFile(String pageIndex) {
-		int totalRecord = fileDao.getTotalRecord();
+		int totalRecord = fileDao.getTotalRecord(null);
 		Page page = null;
 		if (pageIndex == null) {
 			page = new Page(1, totalRecord);
@@ -58,15 +58,13 @@ public class FileService implements IFileService {
 
 	public Page getPageDataFile(String pageIndex, Map<String, Object> map) {
 		log.debug("getPageDataFile map");
-		int totalRecord = fileDao.getTotalRecord();
+		int totalRecord = fileDao.getTotalRecord(map);
 		Page page = null;
 		if (pageIndex == null) {
 			page = new Page(1, totalRecord);
 		} else {
 			page = new Page(Integer.parseInt(pageIndex), totalRecord);
 		}
-		map = new HashMap<String, Object>();
-		map.put("user_id", "123");
 		List list = fileDao.getPageData(page.getStartIndex(), Page.PAGESIZE, map);
 
 		page.setList(list);

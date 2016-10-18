@@ -48,6 +48,7 @@ public class FileDao implements IFileDao {
 		log.debug("file : getPageData");
 		String sql = "from " + className;
 		log.debug(sql);
+		@SuppressWarnings("unchecked")
 		List<FileModel> list = factory.getCurrentSession().createQuery(sql).setFirstResult(startIndex)
 				.setMaxResults(pageSize).getResultList();
 		return list;
@@ -63,14 +64,22 @@ public class FileDao implements IFileDao {
 			}
 		}
 		log.debug(sql.toString());
+		@SuppressWarnings("unchecked")
 		List<FileModel> list = factory.getCurrentSession().createQuery(sql.toString()).setFirstResult(startIndex)
 				.setMaxResults(pageSize).getResultList();
 		return list;
 	}
 
-	public int getTotalRecord() {
-		String sql = "select count(*) from " + className;
-		long count = (Long) factory.getCurrentSession().createQuery(sql).getSingleResult();
+	public int getTotalRecord(Map<String, Object> map) {
+		StringBuffer sql = new StringBuffer("select count(*) from " + className);
+		if (map != null) {
+			sql.append(" where");
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				sql.append(" " + entry.getKey() + "=" + entry.getValue());
+			}
+		}
+		log.debug(sql.toString());
+		long count = (Long) factory.getCurrentSession().createQuery(sql.toString()).getSingleResult();
 		int icount = (int) count;
 		log.debug(icount);
 		return icount;

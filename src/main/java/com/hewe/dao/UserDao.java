@@ -1,6 +1,7 @@
 package com.hewe.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 
@@ -70,10 +71,17 @@ public class UserDao implements IUserDao {
 		}
 	}
 
-	public int getTotalRecord() {
+	public int getTotalRecord(Map<String, Object> map) {
 		try {
-			String sql = "select count(*) from " + className;
-			long count = (Long) factory.getCurrentSession().createQuery(sql).getSingleResult();
+			StringBuffer sql = new StringBuffer("select count(*) from " + className);
+			if (map != null) {
+				sql.append(" where");
+				for (Map.Entry<String, Object> entry : map.entrySet()) {
+					sql.append(" " + entry.getKey() + "=" + entry.getValue());
+				}
+			}
+			log.debug(sql.toString());
+			long count = (Long) factory.getCurrentSession().createQuery(sql.toString()).getSingleResult();
 			int icount = (int) count;
 			log.debug("user count :" + icount);
 			return icount;

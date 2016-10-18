@@ -44,7 +44,7 @@ public class UserService implements IUserService {
 	}
 
 	public Page getPageDataUser(String pageIndex) {
-		int totalRecord = userDao.getTotalRecord();
+		int totalRecord = userDao.getTotalRecord(null);
 		Page page = null;
 		if (pageIndex == null) {
 			page = new Page(1, totalRecord);
@@ -54,7 +54,6 @@ public class UserService implements IUserService {
 		List list = userDao.getPageData(page.getStartIndex(), Page.PAGESIZE);
 
 		page.setList(list);
-
 		return page;
 	}
 

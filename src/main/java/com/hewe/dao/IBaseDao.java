@@ -1,6 +1,7 @@
 package com.hewe.dao;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.hewe.domain.IBaseModel;
 
@@ -15,5 +16,5 @@ public interface IBaseDao<T extends IBaseModel, PK extends Serializable> {
 
 	public void delete(T t);
 
-	public int getTotalRecord();
+	public int getTotalRecord(Map<String, Object> map);
 }
