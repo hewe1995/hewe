@@ -99,4 +99,18 @@ public class UserDao implements IUserDao {
 		return list;
 	}
 
+	public UserModel findByName(String username) {
+		UserModel user = null;
+		try {
+			user = (UserModel) factory.getCurrentSession().createQuery("from " + className + " where username=?")
+					.setParameter(0, username).getSingleResult();
+		} catch (NoResultException noresult) {
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return user;
+	}
+
 }

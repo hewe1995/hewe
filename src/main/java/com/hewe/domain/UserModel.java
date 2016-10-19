@@ -17,6 +17,7 @@ public class UserModel extends BaseModel {
 	private String email;
 	private String sex;
 	private Date createDate;
+	private Date birth;
 
 	/**
 	 * 
@@ -83,5 +84,14 @@ public class UserModel extends BaseModel {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	@Column(nullable = false)
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 }

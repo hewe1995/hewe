@@ -57,4 +57,9 @@ public class UserService implements IUserService {
 		return page;
 	}
 
+	public UserModel findUserByName(String username) {
+		// TODO Auto-generated method stub
+		return userDao.findByName(username);
+	}
+
 }

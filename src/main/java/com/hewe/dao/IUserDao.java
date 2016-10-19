@@ -7,5 +7,7 @@ import com.hewe.domain.UserModel;
 public interface IUserDao extends IBaseDao<UserModel, String> {
 	public UserModel find(String username, String password);
 
+	public UserModel findByName(String username);
+
 	public List<UserModel> getPageData(int startIndex, int pageSize);
 }
